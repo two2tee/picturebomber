@@ -1,4 +1,9 @@
-workongimport 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'dart:convert' as convert;
+import 'package:picture_bomber/models/page.dart';
+import 'package:picture_bomber/models/video.dart';
+
 
 class DataFetcher{
   final String baseURl = "https://www.eporner.com/api/v2";
@@ -7,21 +12,30 @@ class DataFetcher{
 
   DataFetcher(){}
 
-  List getPictureUrls() {
-    Future<http.Response> response = await fetchData();
+  Future<Page> getVideoPage() async {
+    String rawjson = await _fetchData();
+    return _parseJsonToPage(rawjson);
+  }
+
+  Future<String> _fetchData() async {
+    var uri = baseURl+endpoint+query;
+    Response response =  await http.get(uri);
     if (response.statusCode == 200){
-      
+      return response.body; 
     }
     else {
       throw Exception('Failed to load picture urls from source ${response.statusCode}')
     }
-    return [];
   }
 
-  Future<http.Response> fetchData() async {
-    var uri = baseURl+endpoint+query;
-    return await http.get(uri);
+  Page _parseJsonToPage(String rawjson){
+    return new Page.fromJson(rawjson);
   }
 
+}
 
+main() async {
+  var fetcher = new DataFetcher();
+  var page = fetcher.getVideoPage();
+  print(page);
 }
