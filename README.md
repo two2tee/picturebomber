@@ -1,2 +1,2 @@
 # picturebomber
-Fun and dandy
+Fun and dandy written in Flutter
