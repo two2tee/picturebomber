@@ -12,7 +12,7 @@ class Video{
     this.video_url = jsonMap['url'];
     this.views = jsonMap['views'];
     this.rating = jsonMap['rate'];
-    this.rating = jsonMap['thumps'][0]['src'];
+    this.thumb_url = jsonMap['thumbs'][0]['src'];
   }
 
 }

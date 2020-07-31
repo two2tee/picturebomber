@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:picture_bomber/service/picturebomberservice.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,7 +27,10 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   IconButton(
                     icon: new Image.asset('assets/images/bomb.png'),
-                    onPressed: () {},
+                    onPressed: () async {
+                      var service = new PictureBomberService();
+                      print(await service.bombEmail(textFieldController.text));
+                      },
                     iconSize: 150,
                   ),
                   TextField(
